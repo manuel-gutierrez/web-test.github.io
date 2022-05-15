@@ -1,7 +1,12 @@
-$font-stack: Helvetica, sans-serif;
-$primary-color: rgb(138, 54, 54);
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Varela+Round';
+$font-stack: 'Varela Round';
+$h1-font-size: 25px;
+$primary-color: rgb(60, 60, 60);
 
 h1 {
   color: $primary-color;
   font: 100% $font-stack;
+  font-size: $h1-font-size;
+  text-transform: capitalize;
 }

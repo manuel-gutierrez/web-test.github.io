@@ -6,6 +6,7 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 
 // tslint:disable
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ClosurePlugin = require('closure-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
@@ -15,7 +16,7 @@ const devServer: DevServerConfiguration = {};
 const config: webpack.Configuration = {
   mode: 'development',
   entry: ['./src/index.ts', './src/main.scss'],
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -27,6 +28,10 @@ const config: webpack.Configuration = {
             typeCheck: false,
           }
         }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
       {
         test: /\.tsx?$/,
@@ -69,7 +74,6 @@ const config: webpack.Configuration = {
       directory: path.join(__dirname, 'docs/'),
     },
     compress: true,
-    open: true, 
     port: 3000,
   },
   plugins: [
@@ -83,11 +87,12 @@ const config: webpack.Configuration = {
       title:'HTML APP',
       filename:'index.html',
       template:'./src/index.html'
+    }),
 
-    })
 
   ],
   optimization: {
+    runtimeChunk: 'single',
     concatenateModules: false,
     minimizer: [
       new ClosurePlugin({}, {

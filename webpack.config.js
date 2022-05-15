@@ -30,6 +30,7 @@ const path = __importStar(require("path"));
 const mini_css_extract_plugin_1 = __importDefault(require("mini-css-extract-plugin"));
 const optimize_css_assets_webpack_plugin_1 = __importDefault(require("optimize-css-assets-webpack-plugin"));
 // tslint:disable
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ClosurePlugin = require('closure-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
@@ -39,7 +40,7 @@ const devServer = {};
 const config = {
     mode: 'development',
     entry: ['./src/index.ts', './src/main.scss'],
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -51,6 +52,10 @@ const config = {
                         typeCheck: false,
                     }
                 }
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
             },
             {
                 test: /\.tsx?$/,
@@ -93,7 +98,6 @@ const config = {
             directory: path.join(__dirname, 'docs/'),
         },
         compress: true,
-        open: true,
         port: 3000,
     },
     plugins: [
@@ -107,9 +111,10 @@ const config = {
             title: 'HTML APP',
             filename: 'index.html',
             template: './src/index.html'
-        })
+        }),
     ],
     optimization: {
+        runtimeChunk: 'single',
         concatenateModules: false,
         minimizer: [
             new ClosurePlugin({}, {
