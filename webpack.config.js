@@ -39,7 +39,7 @@ const devServer = {};
 const config = {
     mode: 'development',
     entry: ['./src/index.ts', './src/main.scss'],
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -84,17 +84,16 @@ const config = {
         extensions: ['.ts', '.js']
     },
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'docs/'),
         filename: '[name][contenthash].min.js',
         clean: true,
     },
     devServer: {
         static: {
-            directory: path.join(__dirname, 'dist'),
+            directory: path.join(__dirname, 'docs/'),
         },
         compress: true,
         open: true,
-        hot: true,
         port: 3000,
     },
     plugins: [

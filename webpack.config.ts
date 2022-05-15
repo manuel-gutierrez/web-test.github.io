@@ -60,13 +60,13 @@ const config: webpack.Configuration = {
     extensions: ['.ts', '.js']
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'docs/'),
     filename: '[name][contenthash].min.js',
     clean:true, 
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist/'),
+      directory: path.join(__dirname, 'docs/'),
     },
     compress: true,
     open: true, 
